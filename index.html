@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>I am going to scream at the top of my lungs.</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            h1 {
+                text-align: center;
+            }
+            td {
+                font-size: 75%;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- TITLE -->
+        <h1>Are Hotdog</h1>
+
+        <!-- MENU STUFF -->
+        <div class="row">
+            <!-- Divider. -->
+            <div class="col-sm-1"></div>
+            
+            <!-- MENU -->
+            <div id="menu">
+                <div class="col-sm-2" style="background-color:lavender;">
+                    <h3>Hot Dogs</h3>
+                    <table id="tablemenumeal" width="500" class="table table-striped"><tbody id="tablemenubodymeal"></tbody></table><br>
+                </div>
+                <div class="col-sm-2" style="background-color:lavender;">
+                    <h3>Drinky-Poos</h3>
+                    <table id="tablemenudrink" width="500" class="table table-striped"><tbody id="tablemenubodydrink"></tbody></table><br>
+                </div>
+                <div class="col-sm-2" style="background-color:lavender;">
+                    <h3>Desserts</h3>
+                    <table id="tablemenusnack" width="500" class="table table-striped"><tbody id="tablemenubodysnack"></tbody></table>
+                </div>
+            </div>
+
+            <!-- Divider. -->
+            <div class="col-sm-1"></div>
+
+            <!-- CART -->
+            <div id="cart" class="col-sm-3" style="background-color:lavender;">
+                <h3>Your Cart</h3>
+                <table id="tablecart" width="500" class="table table-striped"><tbody id="tablecartbody"></tbody></table>
+                <h5 id="carttotal">Total Price: $0.00</h5>
+            </div>
+
+            <!-- Divider. -->
+            <div class="col-sm-1"></div>
+
+            <!-- End grid. -->
+        </div>
+
+        <!-- JavaScripts -->
+        <script type="text/javascript">var c = console;</script>
+        <script type="text/javascript" src="menu.js"></script>
+        <script type="text/javascript" src="cart.js"></script>
+        <script type="text/javascript" src="user.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+    </body>
+</html>
