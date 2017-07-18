@@ -3,9 +3,7 @@
 // Anonymous function.
 window.modCart = (function() {
     // Variables.
-    var cartFoodName = [];
-    var cartFoodPrice = [];
-    var cartFoodQuant = [];
+    var cartItem = [];
 
     // Ensurement function.
     function moduleEnsure() {
@@ -14,29 +12,27 @@ window.modCart = (function() {
 
     // Add item.
     function cartAddItem(inName, inPrice) {
-        cartFoodQuant[cartFoodName.length] = 0;
-        cartFoodName[cartFoodName.length] = inName;
-        cartFoodPrice[cartFoodPrice.length] = inPrice;
-    }
-
-    // Get name.
-    function cartGetName(inId) {
-        return(cartFoodName[inId]);
-    }
-
-    // Get price.
-    function cartGetPrice(inId) {
-        return(cartFoodPrice[inId]);
+        cartItem[cartItem.length] = new objCartItem(inName, inPrice);
     }
 
     // Get quantity.
     function cartGetQuant(inId) {
-        return(cartFoodQuant[inId]);
+        return(cartItem[inId].itemQuant);
+    }
+
+    // Get entire array.
+    function cartGetArray() {
+        return(cartItem);
+    }
+	
+	// Get one item.
+    function cartGetItem(inId) {
+        return(cartItem[inId]);
     }
 
     // Update item.
     function cartUpdateItem(inId, inQuant) {
-        cartFoodQuant[inId] = inQuant;
+        cartItem[inId].itemQuant = inQuant;
     }
 
     // Load cart.
@@ -47,8 +43,8 @@ window.modCart = (function() {
     // Get total.
     function cartGetTotal() {
         var tre = 0;
-        for(var i = 0; i < cartFoodPrice.length; i++) {
-            tre += (cartFoodPrice[i] * cartFoodQuant[i]);
+        for(var i = 0; i < cartItem.length; i++) {
+            tre += (cartItem[i].itemPrice * cartItem[i].itemQuant);
         }
         return(Math.round(tre * 100) / 100);
     }
@@ -57,14 +53,21 @@ window.modCart = (function() {
     return {
         moduleEnsure: moduleEnsure,
         cartAddItem: cartAddItem,
-        cartGetName: cartGetName,
-        cartGetPrice: cartGetPrice,
         cartGetQuant: cartGetQuant,
         cartUpdate: cartUpdateItem,
         cartLoadCart: cartLoadCart,
         cartGetTotal: cartGetTotal,
-        cartUpdateItem: cartUpdateItem
+        cartUpdateItem: cartUpdateItem,
+        cartGetArray: cartGetArray,
+		cartGetItem: cartGetItem
     }
+	
+	// Item class.
+	function objCartItem(inName, inPrice) {
+		this.itemName = inName;
+		this.itemPrice = inPrice;
+		this.itemQuant = 0;
+	}
 
     // Module end.
 })();

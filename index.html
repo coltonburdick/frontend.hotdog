@@ -9,42 +9,48 @@
         <style>
             h1 {
                 text-align: center;
+                font-weight: bolder;
             }
             td {
-                font-size: 75%;
+                font-size: 66%;
+                font-weight: bold;
+            }
+            #carttotal {
+                font-weight: bold;
             }
         </style>
     </head>
+
     <body>
         <!-- TITLE -->
-        <h1>Are Hotdog</h1>
+        <h1>Hot Dog Thing</h1>
 
-        <!-- MENU STUFF -->
+        <!-- STUFF -->
         <div class="row">
             <!-- Divider. -->
-            <div class="col-sm-1"></div>
+            <div class="col-lg-1"></div>
             
             <!-- MENU -->
-            <div id="menu">
-                <div class="col-sm-2" style="background-color:lavender;">
+            <div id="menudiv">
+                <div class="col-lg-2" style="background-color:lavender;">
                     <h3>Hot Dogs</h3>
                     <table id="tablemenumeal" width="500" class="table table-striped"><tbody id="tablemenubodymeal"></tbody></table><br>
                 </div>
-                <div class="col-sm-2" style="background-color:lavender;">
+                <div class="col-lg-2" style="background-color:lavender;">
                     <h3>Drinky-Poos</h3>
                     <table id="tablemenudrink" width="500" class="table table-striped"><tbody id="tablemenubodydrink"></tbody></table><br>
                 </div>
-                <div class="col-sm-2" style="background-color:lavender;">
-                    <h3>Desserts</h3>
+                <div class="col-lg-2" style="background-color:lavender;">
+                    <h3>Snacks</h3>
                     <table id="tablemenusnack" width="500" class="table table-striped"><tbody id="tablemenubodysnack"></tbody></table>
                 </div>
             </div>
 
             <!-- Divider. -->
-            <div class="col-sm-1"></div>
+            <div class="col-lg-1"></div>
 
             <!-- CART -->
-            <div id="cart" class="col-sm-3" style="background-color:lavender;">
+            <div id="cartdiv" class="col-lg-3" style="background-color:lavender;">
                 <h3>Your Cart</h3>
                 <div class="pre-scrollable">
                     <table id="tablecart" width="500" class="table table-striped"><tbody id="tablecartbody"></tbody></table>
@@ -53,7 +59,7 @@
             </div>
 
             <!-- Divider. -->
-            <div class="col-sm-1"></div>
+            <div class="col-lg-1"></div>
 
             <!-- End grid. -->
         </div>

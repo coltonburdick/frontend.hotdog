@@ -13,29 +13,32 @@
         modUser.moduleEnsure();
         c.log("Program wholly loaded and initiated.");
 
-        // Adding menu items.
-        sysAddItem("Hot Dog", 0.99, "meal");
-        sysAddItem("Hot Dog w/ Yellow Mustard", 1.49, "meal");
-        sysAddItem("Hot Dog w/ Spicy Brown Mustard", 1.49, "meal");
-        sysAddItem("The King Special with a Ton of Ketchup and Mustard", 5.00, "meal");
-        sysAddItem("Decked Out Hot Dog", 12.29, "meal");
-        sysAddItem("Hot Dog Hair Clip", 11.07, "meal");
-        sysAddItem("Spring Water", 0.49, "drink");
-        sysAddItem("Coca-Cola", 1.49, "drink");
-        sysAddItem("Sprite", 1.49, "drink");
-        sysAddItem("Hi-C Orange Lavaburst", 1.49, "drink");
-        sysAddItem("Coffee", 12.29, "drink");
-        sysAddItem("Ketchup Water", 0.04, "drink");
-        sysAddItem("Ketchup on Someone's Head While They're Eating a Hot Dog", 0, "snack");
-        sysAddItem("Corn Dog", 0.74, "snack");
-        sysAddItem("Sachertorte", 12.29, "snack");
+        // Event handler (add to cart).
+        document.getElementById("menudiv").addEventListener("click", function(event) {
+			if (event.target.getAttribute("class") == "butAdd") {buttonAdd(event.target.buttonId);}
+        });
+		
+		// Event handler (remove from cart).
+        document.getElementById("cartdiv").addEventListener("click", function(event) {
+			if (event.target.getAttribute("class") == "butRem") {buttonRemove(event.target.buttonId);}
+        });
+
+		// Initializing menu.
+		modMenu.menuInitiailize();
+		
+		// Adding menu items to cart and DOM Boss.
+		tempMenu = modMenu.menuGetArray();
+		for(i = 0; i < tempMenu.length; i++) {
+			domAddMenu(tempMenu[i].itemName, tempMenu[i].itemPrice, tempMenu[i].itemCat, i);
+			modCart.cartAddItem(tempMenu[i].itemName, tempMenu[i].itemPrice);
+		}
     }
 
     // Module end.
 })(window.modMenu || (window.modMenu = {}) || window.modCart || (window.modCart = {}) || window.modUser || (window.modUser = {})); // IIFE Function
 
 // Adding item to system.
-function sysAddItem(inName, inPrice, inCat) {
+/*function sysAddItem(inName, inPrice, inCat) {
     // Adding to menu app.
     modMenu.menuAddItem(inName, inPrice, inCat);
 
@@ -45,10 +48,10 @@ function sysAddItem(inName, inPrice, inCat) {
     // DOM Boss.
     domAddMenu(inName, inPrice, inCat);
     //domAddCart(inName, inPrice);
-}
+}*/
 
 // Adding menu item to DOM Boss.
-function domAddMenu(inName, inPrice, inCat) {
+function domAddMenu(inName, inPrice, inCat, inId) {
     // Initialize row.
     var tempRow = document.createElement("tr");
     tempRow.setAttribute("id", "menuItem");
@@ -64,11 +67,14 @@ function domAddMenu(inName, inPrice, inCat) {
     tempRow.appendChild(tempAdd);
 
     // Adding button.
+    tempData = document.createElement("td");
     tempAdd = document.createElement("button");
+    tempAdd.setAttribute("class", "butAdd");
     tempAdd.textContent = "Add";
-    tempAdd.buttonId = modMenu.menuGetLength() - 1;
-    tempAdd.addEventListener('click', function() { buttonAdd(this.buttonId);} );
-    tempRow.appendChild(tempAdd);
+    tempAdd.buttonId = inId;
+    //tempAdd.addEventListener('click', function() { buttonAdd(this.buttonId);} );
+    tempData.appendChild(tempAdd);
+    tempRow.appendChild(tempData);
 
     // Finalizing.
     document.getElementById("tablemenubody" + inCat).appendChild(tempRow);
@@ -91,6 +97,7 @@ function domAddCart(inName, inPrice, inId) {
     tempRow.appendChild(tempAdd);
 
     // Adding quantity.
+    tempData = document.createElement("td");
     tempAdd = document.createElement("input");
     tempAdd.setAttribute("type", "number");
     tempAdd.setAttribute("min", "1");
@@ -98,14 +105,18 @@ function domAddCart(inName, inPrice, inId) {
     tempAdd.setAttribute("disabled", "true");
     tempAdd.setAttribute("id", "cartQuant" + inId);
     tempAdd.value = 1;
-    tempRow.appendChild(tempAdd);
+    tempData.appendChild(tempAdd);
+    tempRow.appendChild(tempData);
 
     // Adding remove button.
+    tempData = document.createElement("td");
     tempAdd = document.createElement("button");
+    tempAdd.setAttribute("class", "butRem");
     tempAdd.textContent = "Remove";
     tempAdd.buttonId = inId;
-    tempAdd.addEventListener('click', function() { buttonRemove(this.buttonId);} );
-    tempRow.appendChild(tempAdd);
+    //tempAdd.addEventListener('click', function() { buttonRemove(this.buttonId);} );
+    tempData.appendChild(tempAdd);
+    tempRow.appendChild(tempData);
 
     // Finalizing.
     document.getElementById("tablecartbody").appendChild(tempRow);
@@ -118,7 +129,7 @@ function buttonAdd(inId) {
     // Activating.
     if (modCart.cartGetQuant(inId) < 1) {
         modCart.cartUpdateItem(inId, 1);
-        domAddCart(modMenu.menuGetName(inId), modMenu.menuGetPrice(inId), inId);
+        domAddCart(modMenu.menuGetItem(inId).itemName, modMenu.menuGetItem(inId).itemPrice, inId);
     }
 
     // Incrementing.
@@ -156,3 +167,9 @@ function updateTotal() {
     else if (Math.round(tV * 10) == (tV * 10)) tV += "0";
     document.getElementById("carttotal").innerText = "Total Price: $" + tV;
 }
+
+// Main event handler. [put in stasis]
+/*function clickHandle(butIn) {
+    if (butIn.getAttribute("class") == "butAdd") {buttonAdd(butIn.buttonId);}
+    else if (butIn.getAttribute("class") == "butRem") {buttonRemove(butIn.buttonId);}
+}*/
